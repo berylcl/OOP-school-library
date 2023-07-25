@@ -1,5 +1,4 @@
 # FrozenStringLiteral: true
-
 require_relative 'person'
 
 class Student < Person
