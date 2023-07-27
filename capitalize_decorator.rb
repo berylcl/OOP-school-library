@@ -1,5 +1,4 @@
 # FrozenStringLiteral: true
-
 require_relative 'base_decorator'
 
 class CapitalizeDecorator < BaseDecorator
