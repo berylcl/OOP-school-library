@@ -46,7 +46,7 @@ class App
     puts "Enter the book's title:"
     title = gets.chomp
 
-    puts 'Enter the book's author:'
+    puts "Enter the book's author:"
     author = gets.chomp
 
     @books << Book.new(title, author)
@@ -56,11 +56,11 @@ class App
 
   def create_rental
     list_people
-    puts 'Enter the person's id to create a rental:'
+    puts "Enter the person's id to create a rental:"
     person_id = gets.chomp.to_i
 
     list_books
-    puts 'Enter the book's index to create a rental:'
+    puts "Enter the book's index to create a rental:"
     book_index = gets.chomp.to_i
 
     person = @people.find { |p| p.id == person_id }
@@ -69,7 +69,7 @@ class App
     if person && book
       rental = Rental.new(Date.today, book, person)
       @rentals << rental
-      puts 'Rental created: #{person.name} rented '#{book.title}'.'
+      puts "Rental created: #{person.name} rented '#{book.title}'."
     else
       puts 'Invalid person ID or book index.'
     end
@@ -84,9 +84,9 @@ class App
       puts 'Invalid input for person ID. Please enter a valid integer.'
       return
     end
-  
+
     person = @people.find { |p| p.id == person_id }
-  
+
     if person
       rentals = @rentals.select { |rental| rental.person == person }
       puts "#{person.name}'s Rentals:"
@@ -97,5 +97,4 @@ class App
       puts 'Invalid person ID.'
     end
   end
-  
 end
