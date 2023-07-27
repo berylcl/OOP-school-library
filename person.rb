@@ -1,5 +1,4 @@
 # FrozenStringLiteral: true
-
 require_relative 'nameable'
 
 class Person < Nameable
