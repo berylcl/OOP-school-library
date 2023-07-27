@@ -59,7 +59,6 @@ In order to run this project you need:
 - [A terminal](https://code.visualstudio.com/docs/terminal/basics).
 
 ### Setup
-### Setup
 
 Clone this repository to your desired folder or download the Zip folder:
 
@@ -99,7 +98,6 @@ rubocop
 
 ## 👤 Author <a name="author"></a>
 
-## 👤 Author <a name="author"></a>
 👤 **Gakii Beryl**
 
 - GitHub: [@berylcl] (https://github.com/berylcl)
