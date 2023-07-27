@@ -11,26 +11,33 @@ def print_options
   puts '7. Quit'
 end
 
-def process_choice(app, choice)
-  case choice
-  when 1
-    app.list_books
-  when 2
-    app.list_people
-  when 3
-    app.create_person
-  when 4
-    app.create_book
-  when 5
-    app.create_rental
-  when 6
-    app.list_rentals_for_person
-  when 7
-    puts 'Goodbye!'
-    exit
-  else
-    puts 'Invalid choice. Please try again.'
-  end
+def list_books(app)
+  app.list_books
+end
+
+def list_people(app)
+  app.list_people
+end
+
+def create_person(app)
+  app.create_person
+end
+
+def create_book(app)
+  app.create_book
+end
+
+def create_rental(app)
+  app.create_rental
+end
+
+def list_rentals_for_person(app)
+  app.list_rentals_for_person
+end
+
+def quit
+  puts 'Goodbye!'
+  exit
 end
 
 def main
@@ -38,9 +45,27 @@ def main
 
   loop do
     print_options
-    print '\nEnter your choice (1-7): '
+    print "\nEnter your choice (1-7): "
     choice = gets.chomp.to_i
-    process_choice(app, choice)
+
+    case choice
+    when 1
+      list_books(app)
+    when 2
+      list_people(app)
+    when 3
+      create_person(app)
+    when 4
+      create_book(app)
+    when 5
+      create_rental(app)
+    when 6
+      list_rentals_for_person(app)
+    when 7
+      quit
+    else
+      puts 'Invalid choice. Please try again.'
+    end
   end
 end
 

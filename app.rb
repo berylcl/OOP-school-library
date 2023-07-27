@@ -15,12 +15,12 @@ class App
 
   def list_people
     puts 'List of People:'
-    @people.each { |person| puts 'ID: #{person.id}, #{person.class.name}: #{person.name}' }
+    @people.each { |person| puts "ID: #{person.id}, #{person.class.name}: #{person.name}" }
   end
 
   def list_books
     puts 'List of Books:'
-    @books.each_with_index { |book, index| puts '#{index}. #{book.title} by #{book.author}' }
+    @books.each_with_index { |book, index| puts "#{index}. #{book.title} by #{book.author}" }
   end
 
   def create_person
@@ -31,15 +31,11 @@ class App
     age = gets.chomp.to_i
 
     puts 'Is the person a student? (yes/no):'
-    is_student = gets.chomp.downcase
+    is_student = gets.chomp.downcase == 'yes'
 
-    if is_student == 'yes'
-      @people << Student.new(name, age)
-    else
-      @people << Teacher.new(name, age)
-    end
+    @people << (is_student ? Student.new(name, age) : Teacher.new(name, age))
 
-    puts "#{name} has been added as a #{is_student == 'yes' ? 'student' : 'teacher'}."
+    puts "#{name} has been added as a #{is_student ? 'student' : 'teacher'}."
   end
 
   def create_book
