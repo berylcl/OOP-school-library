@@ -1,5 +1,7 @@
 # FrozenStringLiteral: true
-class Person
+
+require_relative 'nameable'
+class Person < Nameable
   attr_reader :id, :parent_permission
   attr_accessor :name, :age
 
