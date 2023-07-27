@@ -1,5 +1,4 @@
 # FrozenStringLiteral: true
-
 class Person
   attr_reader :id, :parent_permission
   attr_accessor :name, :age
