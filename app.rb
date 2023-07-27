@@ -24,10 +24,10 @@ class App
   end
 
   def create_person
-    puts 'Enter the person's name:'
+    puts "Enter the person's name:"
     name = gets.chomp
 
-    puts 'Enter the person's age:'
+    puts "Enter the person's age:"
     age = gets.chomp.to_i
 
     puts 'Is the person a student? (yes/no):'
@@ -39,11 +39,11 @@ class App
       @people << Teacher.new(name, age)
     end
 
-    puts '#{name} has been added as a #{is_student == 'yes' ? 'student' : 'teacher'}.'
+    puts "#{name} has been added as a #{is_student == 'yes' ? 'student' : 'teacher'}."
   end
 
   def create_book
-    puts 'Enter the book's title:'
+    puts "Enter the book's title:"
     title = gets.chomp
 
     puts 'Enter the book's author:'
@@ -51,7 +51,7 @@ class App
 
     @books << Book.new(title, author)
 
-    puts '#{title} by #{author} has been added to the library.'
+    puts "#{title} by #{author} has been added to the library."
   end
 
   def create_rental
@@ -77,19 +77,25 @@ class App
 
   def list_rentals_for_person
     list_people
-    puts 'Enter the person's id to list their rentals:'
-    person_id = gets.chomp.to_i
-
+    puts "Enter the person's id to list their rentals:"
+    begin
+      person_id = Integer(gets.chomp)
+    rescue ArgumentError
+      puts 'Invalid input for person ID. Please enter a valid integer.'
+      return
+    end
+  
     person = @people.find { |p| p.id == person_id }
-
+  
     if person
       rentals = @rentals.select { |rental| rental.person == person }
-      puts '#{person.name}'s Rentals:'
+      puts "#{person.name}'s Rentals:"
       rentals.each do |rental|
-        puts '- #{rental.book.title}, rented on #{rental.date}'
+        puts "- #{rental.book.title}, rented on #{rental.date}"
       end
     else
       puts 'Invalid person ID.'
     end
   end
+  
 end
