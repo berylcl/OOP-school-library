@@ -30,11 +30,11 @@ class App
     puts "Enter the person's age:"
     age = gets.chomp.to_i
 
-    puts "Is the person a student? (yes/no):"
+    puts 'Is the person a student? (yes/no):'
     is_student = gets.chomp.downcase
 
     if is_student == 'yes'
-      puts "Does the student have parent permission? (yes/no):"
+      puts 'Does the student have parent permission? (yes/no):'
       parent_permission = gets.chomp.downcase == 'yes'
       @people << Student.new(name, age, parent_permission: parent_permission)
       puts "#{name} has been added as a student."
