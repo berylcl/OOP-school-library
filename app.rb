@@ -36,17 +36,16 @@ class App
     if is_student == 'yes'
       puts 'Does the student have parent permission? (yes/no):'
       parent_permission = gets.chomp.downcase == 'yes'
-      @people << Student.new(name, age, parent_permission: parent_permission)
+      @people << Student.new(name, age, parent_permission)
       puts "#{name} has been added as a student."
-    end
-    if is_student == 'no'
+    elsif is_student == 'no'
       puts "Enter the teacher's specialization:"
       specialization = gets.chomp
       @people << Teacher.new(name, age, specialization)
-      puts "#{name} has been added as a teacher."
+      puts "#{name} has been added as a teacher with specialization in #{specialization}."
+    else
+      puts 'Invalid input. Please enter either "yes" or "no".'
     end
-
-    puts "Invalid choice. Please enter 'yes' or 'no'." if is_student != 'yes' && is_student != 'no'
   end
 
   def create_book
