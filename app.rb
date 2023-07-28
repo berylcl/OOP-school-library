@@ -30,12 +30,23 @@ class App
     puts "Enter the person's age:"
     age = gets.chomp.to_i
 
-    puts 'Is the person a student? (yes/no):'
-    is_student = gets.chomp.downcase == 'yes'
+    puts "Is the person a student? (yes/no):"
+    is_student = gets.chomp.downcase
 
-    @people << (is_student ? Student.new(name, age) : Teacher.new(name, age))
+    if is_student == 'yes'
+      puts "Does the student have parent permission? (yes/no):"
+      parent_permission = gets.chomp.downcase == 'yes'
+      @people << Student.new(name, age, parent_permission: parent_permission)
+      puts "#{name} has been added as a student."
+    end
+    if is_student == 'no'
+      puts "Enter the teacher's specialization:"
+      specialization = gets.chomp
+      @people << Teacher.new(name, age, specialization)
+      puts "#{name} has been added as a teacher."
+    end
 
-    puts "#{name} has been added as a #{is_student ? 'student' : 'teacher'}."
+    puts "Invalid choice. Please enter 'yes' or 'no'." if is_student != 'yes' && is_student != 'no'
   end
 
   def create_book
@@ -92,5 +103,10 @@ class App
     else
       puts 'Invalid person ID.'
     end
+  end
+
+  def quit
+    puts 'Goodbye!'
+    exit
   end
 end
