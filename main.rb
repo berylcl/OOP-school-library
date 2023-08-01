@@ -1,4 +1,5 @@
 require_relative 'app'
+require 'json'
 
 OPTIONS = {
   1 => :list_books,
@@ -17,7 +18,12 @@ end
 
 def main
   app = App.new
+  app.load_data
 
+  at_exit do
+    app.save_data
+    puts 'See you again!'
+  end
   loop do
     print_options
     print "\nEnter your choice (1-7): "
@@ -25,7 +31,7 @@ def main
 
     if OPTIONS.key?(choice)
       action = OPTIONS[choice]
-      app.send(action) # Invoke the corresponding method in the App class
+      app.send(action)
     else
       puts 'Invalid choice. Please try again.'
     end
