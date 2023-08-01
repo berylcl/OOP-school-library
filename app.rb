@@ -13,6 +13,18 @@ class App
     @rentals = []
   end
 
+  def save_data
+    save_books
+    save_people
+    save_rentals
+  end
+
+  def load_data
+    load_books
+    load_people
+    load_rentals
+  end
+
   def list_people
     puts 'List of People:'
     @people.each { |person| puts "ID: #{person.id}, #{person.class.name}: #{person.name}" }
@@ -101,6 +113,86 @@ class App
       end
     else
       puts 'Invalid person ID.'
+    end
+  end
+
+  def save_books
+    File.open('books.json', 'w') do |file|
+      file.write(JSON.generate(@books.map { |book| { title: book.title, author: book.author } }))
+    end
+  end
+
+  def save_people
+    File.open('people.json', 'w') do |file|
+      file.write(JSON.generate(@people.map do |person|
+        {
+          id: person.id,
+          name: person.name,
+          age: person.age,
+          parent_permission: person.instance_variable_get(:@parent_permission),
+          classroom_label: person.classroom&.label
+        }
+      end))
+    end
+  end
+
+  def save_rentals
+    File.open('rentals.json', 'w') do |file|
+      file.write(JSON.generate(@rentals.map do |rental|
+        {
+          date: rental.date.to_s,
+          book_title: rental.book.title,
+          book_author: rental.book.author,
+          person_id: rental.person.id
+        }
+      end))
+    end
+  end
+
+  def load_books
+    if File.exist?('books.json')
+      books_data = File.read('books.json')
+      if books_data.empty?
+        puts "The 'books.json' file is empty. Starting with an empty list of books."
+        @books = []
+      else
+        @books = JSON.parse(books_data).map { |data| Book.new(data['title'], data['author']) }
+      end
+    else
+      puts "No 'books.json' file found. Starting with an empty list of books."
+      @books = []
+    end
+  end
+
+  def load_people
+    if File.exist?('people.json')
+      people_data = JSON.parse(File.read('people.json'))
+      @people = people_data.map do |data|
+        if data['classroom_label']
+          classroom = Classroom.new(data['classroom_label'])
+          data['classroom'] = classroom
+        end
+        if data['parent_permission']
+          Student.new(data['age'], data['name'], data['parent_permission'])
+        else
+          Teacher.new(data['name'], data['age'], data['specialization'])
+        end
+      end
+    else
+      puts "No 'people.json' file found. Starting with an empty list of people."
+    end
+  end
+
+  def load_rentals
+    if File.exist?('rentals.json')
+      rentals_data = JSON.parse(File.read('rentals.json'))
+      @rentals = rentals_data.map do |data|
+        book = @books.find { |b| b.title == data['book_title'] && b.author == data['book_author'] }
+        person = @people.find { |p| p.id == data['person_id'] }
+        Rental.new(Date.parse(data['date']), book, person) if book && person
+      end.compact
+    else
+      puts "No 'rentals.json' file found. Starting with an empty list of rentals."
     end
   end
 
