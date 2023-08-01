@@ -100,13 +100,15 @@ end
 
 class App
   attr_accessor :people, :books, :rentals
-  include Loadable 
+
+  include Loadable
   include Saveable
   def initialize
     @people = []
     @books = []
     @rentals = []
   end
+
   def load_data
     load_books
     load_people
@@ -119,6 +121,7 @@ class App
     save_people
     save_rentals
   end
+
   # List all people.
   def list_people
     puts 'List of People:'
