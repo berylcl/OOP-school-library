@@ -1,5 +1,10 @@
 require 'json'
 require 'date'
+require_relative 'person'
+require_relative 'student'
+require_relative 'teacher'
+require_relative 'book'
+require_relative 'rental'
 
 module Saveable
   # Save books data to 'books.json' file.
@@ -95,13 +100,25 @@ end
 
 class App
   attr_accessor :people, :books, :rentals
-
+  include Loadable 
+  include Saveable
   def initialize
     @people = []
     @books = []
     @rentals = []
   end
+  def load_data
+    load_books
+    load_people
+    load_rentals
+  end
 
+  # Save data to the respective JSON files.
+  def save_data
+    save_books
+    save_people
+    save_rentals
+  end
   # List all people.
   def list_people
     puts 'List of People:'

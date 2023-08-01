@@ -22,7 +22,7 @@ def main
 
   at_exit do
     app.save_data
-    puts 'Goodbye!'
+    puts 'See you again!'
   end
   loop do
     print_options
