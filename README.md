@@ -103,6 +103,13 @@ rubocop
 - GitHub: [@berylcl] (https://github.com/berylcl)
 - Twitter: [omg_its_beryl](https://twitter.com/omg_its_beryl)
 - LinkedIn: [gakii](https://www.linkedin.com/in/gakii-beryl/)
+
+👤 **Dilsher**
+
+- GitHub: [@DilsherB](https://github.com/DilsherB)
+- Twitter: [@\_brilliantMindz](https://twitter.com/_brilliantMindz)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/dilsher-balouch/)
+
 <p align='right'>(<a href='#readme-top'>back to top</a>)</p>
 
 ## 🔭 Future Features <a name='future-features'></a>
