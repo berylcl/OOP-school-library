@@ -54,6 +54,7 @@ module Loadable
       @books = []
     end
   end
+
   # Load people data from 'people.json' file.
   def load_people
     if File.exist?('people.json')
@@ -63,6 +64,7 @@ module Loadable
       puts "No 'people.json' file found. Starting with an empty list of people."
     end
   end
+
   # Load rentals data from 'rentals.json' file.
   def load_rentals
     if File.exist?('rentals.json')
@@ -72,7 +74,9 @@ module Loadable
       puts "No 'rentals.json' file found. Starting with an empty list of rentals."
     end
   end
+
   private
+
   # Create a person object from the provided data.
   def create_person_from_data(data)
     classroom = Classroom.new(data['classroom_label']) if data['classroom_label']
@@ -85,6 +89,7 @@ module Loadable
     person.classroom = classroom if classroom
     person
   end
+
   # Create a rental object from the provided data.
   def create_rental_from_data(data)
     book = @books.find { |b| b.title == data['book_title'] && b.author == data['book_author'] }
