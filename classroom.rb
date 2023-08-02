@@ -1,4 +1,5 @@
 # FrozenStringLiteral: true
+
 class Classroom
   attr_accessor :label, :students
 
@@ -8,9 +9,9 @@ class Classroom
   end
 
   def add_student(student)
-    unless students.include?(student)
-      students << student
-      student.classroom = self
-    end
+    return if students.include?(student)
+
+    students << student
+    student.classroom = self
   end
 end

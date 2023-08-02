@@ -1,9 +1,9 @@
 require_relative 'base_decorator'
 
 class CapitalizeDecorator < BaseDecorator
-  def method_missing(method, *args, &block)
+  def method_missing(method, ...)
     if @nameable.respond_to?(method)
-      @nameable.send(method, *args, &block)
+      @nameable.send(method, ...)
     else
       super
     end
