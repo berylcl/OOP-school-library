@@ -1,4 +1,3 @@
-# FrozenStringLiteral: true
 class Person
   attr_accessor :name, :age, :rentals, :classroom
   attr_reader :id
@@ -12,7 +11,7 @@ class Person
   end
 
   def can_use_services?
-    of_age? || parent_permission
+    of_age? || @parent_permission
   end
 
   def correct_name
