@@ -38,6 +38,61 @@ module Saveable
   end
 end
 
+module Loadable
+  # Load books data from 'books.json' file.
+  def load_books
+    if File.exist?('books.json')
+      books_data = File.read('books.json')
+      if books_data.empty?
+        puts "The 'books.json' file is empty. Starting with an empty list of books."
+        @books = []
+      else
+        @books = JSON.parse(books_data).map { |data| Book.new(data['title'], data['author']) }
+      end
+    else
+      puts "No 'books.json' file found. Starting with an empty list of books."
+      @books = []
+    end
+  end
+  # Load people data from 'people.json' file.
+  def load_people
+    if File.exist?('people.json')
+      people_data = JSON.parse(File.read('people.json'))
+      @people = people_data.map { |data| create_person_from_data(data) }
+    else
+      puts "No 'people.json' file found. Starting with an empty list of people."
+    end
+  end
+  # Load rentals data from 'rentals.json' file.
+  def load_rentals
+    if File.exist?('rentals.json')
+      rentals_data = JSON.parse(File.read('rentals.json'))
+      @rentals = rentals_data.map { |data| create_rental_from_data(data) }.compact
+    else
+      puts "No 'rentals.json' file found. Starting with an empty list of rentals."
+    end
+  end
+  private
+  # Create a person object from the provided data.
+  def create_person_from_data(data)
+    classroom = Classroom.new(data['classroom_label']) if data['classroom_label']
+    person =
+      if data['parent_permission']
+        Student.new(data['name'], data['age'], data['parent_permission'])
+      else
+        Teacher.new(data['name'], data['age'], data['specialization'])
+      end
+    person.classroom = classroom if classroom
+    person
+  end
+  # Create a rental object from the provided data.
+  def create_rental_from_data(data)
+    book = @books.find { |b| b.title == data['book_title'] && b.author == data['book_author'] }
+    person = @people.find { |p| p.id == data['person_id'] }
+    Rental.new(Date.parse(data['date']), book, person) if book && person
+  end
+end
+
 class App
   attr_accessor :people, :books, :rentals
 
