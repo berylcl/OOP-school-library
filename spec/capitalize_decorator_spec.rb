@@ -1,5 +1,6 @@
 require_relative '../capitalize_decorator'
 require_relative '../person'
+
 RSpec.describe CapitalizeDecorator do
   let(:person) { Person.new(30, 'john doe') }
   let(:decorated_person) { CapitalizeDecorator.new(person) }
