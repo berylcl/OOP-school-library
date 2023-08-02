@@ -1,4 +1,3 @@
-
 require_relative '../book'
 
 RSpec.describe Book do
